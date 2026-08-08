@@ -2,7 +2,7 @@
 
 ## Core Model
 
-**PrivateLink = connectivity.** The VPC Endpoint (VPCE) gives you a private network path to a service. /n
+**PrivateLink = connectivity.** The VPC Endpoint (VPCE) gives you a private network path to a service.
 **DNS = discovery.** It decides how a workload actually *finds* that VPCE.
 
 These are two separate decisions — don't conflate them.
