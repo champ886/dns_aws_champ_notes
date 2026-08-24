@@ -55,6 +55,15 @@ Every VPC has an Amazon-provided DNS resolver at the base of its CIDR **+2** (e.
 - Network team owns DNS
 - ✅ Full governance
 
+### 3b. Centralised PrivateLink + Customer DNS (Scaled via Profiles)
+- Network VPC owns the VPCE + PHZ
+- Private DNS: **disabled**
+- PHZ added as a resource in a Route 53 Profile
+- Profile shared to spokes via RAM
+- Spokes associate the Profile once — no per-VPC PHZ association, no 300-VPC cap
+- Resolver endpoint only required for hybrid (on-prem) queries
+- ✅ Full governance, scales past 300 spokes
+
 ---
 
 ## Central DNS (no PrivateLink involved)
