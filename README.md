@@ -31,6 +31,8 @@ Every VPC has an Amazon-provided DNS resolver at the base of its CIDR **+2** (e.
 - **Private DNS** = AWS-managed private DNS records
 - **PHZ** = customer-managed private DNS records
 
+**Key constraint:** Private DNS enabled → AWS creates its own PHZ, locked to the single VPC with the endpoint — can't be associated to any other VPC. Private DNS disabled → you create the PHZ, and you can associate it with additional VPCs, including cross-account. This is the actual fork point for centralising PrivateLink across spokes — not a style preference, a hard limit on the AWS-managed zone.
+
 ---
 
 ## PrivateLink Models
