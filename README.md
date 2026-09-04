@@ -68,6 +68,24 @@ Every VPC has an Amazon-provided DNS resolver at the base of its CIDR **+2** (e.
 
 ---
 
+## Provider-Side: Custom Domain via TXT-Verified Private DNS Name
+
+Different actor than the models above — this is for when **you're the service provider** exposing a VPC Endpoint Service, and want third-party consumers to reach it via *your* custom domain instead of the generated `vpce-svc-xxxx` name. Still uses an AWS-managed PHZ under the hood — this is a variant of Private DNS **enabled**, not a fourth ownership type.
+
+**Provider side:**
+- Add a private DNS name to the endpoint service config (new or existing service)
+- AWS issues a domain verification value/name → you publish it as a **TXT record in your public DNS zone** (must be publicly resolvable — a private zone won't verify)
+- One private DNS name per endpoint service; can verify at the domain or subdomain level
+
+**Consumer side:**
+- `enableDnsHostnames` / `enableDnsSupport` must be `true` on their VPC
+- Consumer can't enable Private DNS on their interface endpoint until the provider accepts the connection request
+- Once enabled: AWS auto-creates a PHZ in the **consumer's** VPC with a CNAME mapping your custom domain → the endpoint's regional DNS name — zero manual PHZ work on their end
+
+**Same constraint as above still applies:** that auto-created PHZ is locked to the consumer's own VPC. It doesn't help *you* centralise or fan out DNS — it just gives *their* single VPC a friendly name for free.
+
+---
+
 ## Central DNS (no PrivateLink involved)
 
 Network account provides:
