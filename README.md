@@ -44,7 +44,7 @@ Every VPC has an Amazon-provided DNS resolver at the base of its CIDR **+2** (e.
 - ✅ Simple ❌ No central control
 
 
-2. Centralised PrivateLink + AWS DNS
+### 2. Centralised PrivateLink + AWS DNS
 - Network VPC owns the VPCE
 - Private DNS: enabled
 - AWS manages the private DNS records for the endpoint
@@ -59,7 +59,7 @@ Component	Responsibility
 Route 53 Resolver + RAM	DNS resolution and forwarding  
 TGW + route tables + SGs	Network connectivity to central VPCE
 
-3. Centralised PrivateLink + Customer DNS
+### 3. Centralised PrivateLink + Customer DNS
 - Network VPC owns the VPCE
 - Private DNS: disabled
 - Network account creates a Route 53 Private Hosted Zone (PHZ)
