@@ -43,12 +43,21 @@ Every VPC has an Amazon-provided DNS resolver at the base of its CIDR **+2** (e.
 - AWS owns the DNS record
 - ✅ Simple ❌ No central control
 
-### 2. Centralised PrivateLink + AWS DNS
+
+2. Centralised PrivateLink + AWS DNS
 - Network VPC owns the VPCE
-- Private DNS: **enabled**
-- AWS still owns the DNS record
-- Resolution can be centralised via Resolver + RAM
-- ❌ No DNS ownership on your side
+- Private DNS: enabled
+- AWS manages the private DNS records for the endpoint
+- Route 53 Resolver provides centralised DNS resolution
+- Resolver forwarding rules determine which DNS queries are forwarded to central DNS or external DNS servers
+- AWS RAM shares Resolver rules across VPCs/accounts
+- Spoke VPCs associate shared Resolver rules to use the centralised DNS configuration
+- TGW routing + security groups control network reachability to the central VPCE
+- ❌ No direct ownership of AWS-managed private DNS records
+
+Component	Responsibility
+Route 53 Resolver + RAM	DNS resolution and forwarding
+TGW + route tables + SGs	Network connectivity to central VPCE
 
 ### 3. Centralised PrivateLink + Customer DNS
 - Network VPC owns the VPCE
