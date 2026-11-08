@@ -59,12 +59,19 @@ Component	Responsibility
 Route 53 Resolver + RAM	DNS resolution and forwarding  
 TGW + route tables + SGs	Network connectivity to central VPCE
 
-### 3. Centralised PrivateLink + Customer DNS
+3. Centralised PrivateLink + Customer DNS
 - Network VPC owns the VPCE
-- Private DNS: **disabled**
-- You create a Route 53 PHZ + Alias record
-- Network team owns DNS
-- ✅ Full governance
+- Private DNS: disabled
+- Network account creates a Route 53 Private Hosted Zone (PHZ)
+- Create a CNAME record pointing to the central VPCE's DNS name
+- Associate the PHZ with the Network VPC
+- Make the PHZ available to Dev/Prod spoke VPCs using either:
+  - Option A: Direct cross-account PHZ association
+  - Option B: Route 53 Profiles shared across accounts using AWS RAM
+- Spoke VPCs resolve the PrivateLink service name through the shared PHZ
+- TGW routing + security groups control network reachability to the central VPCE
+- Network team owns DNS records and governance
+- ✅ Full DNS governance and control
 
 ### 3b. Centralised PrivateLink + Customer DNS (Scaled via Profiles)
 - Network VPC owns the VPCE + PHZ
