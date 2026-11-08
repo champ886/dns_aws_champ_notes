@@ -56,7 +56,7 @@ Every VPC has an Amazon-provided DNS resolver at the base of its CIDR **+2** (e.
 - ❌ No direct ownership of AWS-managed private DNS records
 
 Component	Responsibility  
-Route 53 Resolver + RAM	DNS resolution and forwarding
+Route 53 Resolver + RAM	DNS resolution and forwarding  
 TGW + route tables + SGs	Network connectivity to central VPCE
 
 ### 3. Centralised PrivateLink + Customer DNS
